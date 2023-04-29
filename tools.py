@@ -130,12 +130,6 @@ class TSharkTool(NetworkTool):
         command = ['timeout', duration, 'tshark', '-i', 'any', '-c', '10', '-n', '-Y', 'http']
         return self.run(command)
 
-class ContinuousPingTool(NetworkTool):
-    def execute(self):
-        """Continuously ping the target until manually stopped."""
-        command = ['ping', self.target]
-        return self.run(command)
-
 class NetcatConnectionTool(NetworkTool):
     def execute(self, port, message):
         """Establish a connection to a remote server and send a message."""
@@ -221,7 +215,7 @@ class NetworkAnalyzer:
         self.target = target
         self.tools = [IPDNSDetailTool(target), PingTool(target), NsLookupTool(target), TracerouteTool(target),
                       NetcatTool(target), IPerfTool(target), TcpdumpTool(target), TSharkTool(target),
-                      ContinuousPingTool(target), NetcatConnectionTool(target), SimpleTcpClient(target),
+                      NetcatConnectionTool(target), SimpleTcpClient(target),
                       SimpleTcpServer(target), TCPConnection(target, 80), UDPConnection(target, 53), 
                       HTTPRequestTool(target)]
 
